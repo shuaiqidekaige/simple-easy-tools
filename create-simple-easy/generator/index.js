@@ -10,8 +10,7 @@ let targetDir
 let cwd
 let projectName
 
-const templateName = 'vue'
-const scripts = 'demo-scripts'
+const templateName = 'simple-easy-template'
 let manager
 
 async function generator(obj) {
@@ -23,7 +22,7 @@ async function generator(obj) {
 
   await createPackAgeJson();
   installAllDependencies();
-  generatorTemplate();
+  generatorTemplate(obj);
 
 }
 
@@ -64,7 +63,7 @@ function checkForLatestVersion(pkg) {
 }
 
 async function getDependencies () {
-  const devDependencies = [templateName, scripts]
+  const devDependencies = [templateName]
   const lastedDevDependencies = {}
   for (let i = 0; i < devDependencies.length; i++) {
     const devDependencie = devDependencies[i];
@@ -75,12 +74,13 @@ async function getDependencies () {
   }
 }
 
-function generatorTemplate () {
+function generatorTemplate (obj) {
+  const { projectName, cssPreprocessors, isUseTypeScript } = obj
   const args = `
-    var init = require('${scripts}/init.js');
+    var init = require('${templateName}/init.js');
     init.apply(null, JSON.parse(process.argv[1]));
   `
-  const params = [targetDir, projectName, manager, scripts]
+  const params = [projectName, cssPreprocessors, isUseTypeScript, targetDir, templateName, manager]
   executeNodeScript(targetDir, process.execPath, ['-e', args, JSON.stringify(params)])
 }
 
