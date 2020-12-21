@@ -1,5 +1,5 @@
 {
-  "name": <%= templateName %>,
+  "name": "csk",
   "version": "1.0.0",
   "main": "init.js",
   "scripts": {

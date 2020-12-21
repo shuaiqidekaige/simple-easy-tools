@@ -16,6 +16,23 @@ function installAllDependencies(manager, targetDir) {
   }
 }
 
+function writeFile (dirPath, content, target) {
+  const dirArr = dirPath.split('/')
+  let index = 0
+  while (++index) {
+    const dir = dirArr.slice(0, index).join('/')
+    console.log(dir)
+    const writePath = path.join(target, dir)
+    if (dirArr.length <= index) {
+      fs.ensureFileSync(writePath)
+      fs.writeFileSync(writePath, content)
+      break;
+    } else {
+      fs.ensureDirSync(writePath)
+    }
+  }
+}
+
 function init (...args) {
   const [projectName, cssPreprocessors, isUseTypeScript, targetDir, templateName, manager] = args
   try {
@@ -28,11 +45,10 @@ function init (...args) {
       });
       templateFiles.forEach((filePath) => {
         const templatePath = path.join(templateDir, filePath)
-        const outputPath = filePath.replace('.tpl', '');
-        const writePath = path.join(targetDir, outputPath)
         const data = fs.readFileSync(templatePath, 'utf8')
-        const renderContent = ejs.render(data, {projectName})
-        fs.writeFileSync(writePath, renderContent)
+        const renderContent = ejs.render(data, { projectName, preprocessor: cssPreprocessors })
+        writeFile(filePath, renderContent, targetDir)
+        // fs.writeFileSync(writePath, renderContent)
       });
       installAllDependencies(manager, targetDir)
     } else {
