@@ -21,7 +21,6 @@ function writeFile (dirPath, content, target) {
   let index = 0
   while (++index) {
     const dir = dirArr.slice(0, index).join('/')
-    console.log(dir)
     const writePath = path.join(target, dir)
     if (dirArr.length <= index) {
       fs.ensureFileSync(writePath)
