@@ -7,7 +7,7 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "bin": {
-    "demo-tool": "./src/index.js"
+    "simple-easy-scripts": "./src/index.js"
   },
   "keywords": [],
   "author": "",
