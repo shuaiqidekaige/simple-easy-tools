@@ -4,7 +4,9 @@
   "main": "init.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": ""
+    "build": "simple-easy-scripts run compile",
+    "doc:dev": "simple-easy-scripts doc dev",
+    "doc:build": "simple-easy-scripts doc build"
   },
   "husky": {
     "hooks": {
