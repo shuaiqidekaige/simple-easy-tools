@@ -1,2 +1,5 @@
-# demo-cli
-拉取模板的脚手架
+# create-simple-easy
+
+simple
+create-simple-easy 项目名称
+
