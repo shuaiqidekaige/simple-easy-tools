@@ -10,7 +10,7 @@ let targetDir
 let cwd
 let projectName
 
-const templateName = 'simple-easy-template'
+const templateName = '@simple-easy/simple-easy-template'
 let manager
 
 async function generator(obj) {
