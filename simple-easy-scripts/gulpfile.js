@@ -5,7 +5,7 @@ const through2 = require('through2');
 const rimraf = require('rimraf');
 const merge2 = require('merge2')
 const babel = require('gulp-babel');
-
+const { outputFileSync } = require('fs-extra')
 const { transformLess, setModulesEnv, transformJs, getModulesEnv } = require('./util')
 
 const dist = path.resolve(process.cwd(), './dist')
@@ -58,7 +58,7 @@ async function generateCssEntry (dir, files) {
       content += `@import "./${path.join(file, 'style', 'index.less').replace(/\\/g, () => '/')}";\n`;
     }
   });
-  fs.writeFileSync(
+  outputFileSync(
     path.join(libDir, 'index.less'),
     content,
   );
@@ -68,7 +68,7 @@ async function generateCssEntry (dir, files) {
   } catch (error) {
     console.log(error)
   }
-  fs.writeFileSync(
+  outputFileSync(
     path.join(libDir, 'index.css'),
     css,
   );
@@ -88,16 +88,16 @@ async function generateJsEntry (dir, files) {
       content += `export { default as ${name} } from "../${file}";\n`;
     }
   });
-  let baseDir = esDir
+  let baseDir = getModulesEnv() === 'lib' ? libDir : esDir
+  const entryJs = path.join(baseDir, 'index.js')
   if (getModulesEnv() === 'lib') {
-    baseDir = libDir
+    content = await transformJs(content, entryJs)
   }
-  const entrJs = path.join(baseDir, 'index.js')
-  fs.writeFileSync(
-    entrJs,
+  outputFileSync(
+    entryJs,
     content,
   );
-  await transformJs(entrJs)
+  
 }
 // 生成入口文件
 async function generateEntry (modules) {

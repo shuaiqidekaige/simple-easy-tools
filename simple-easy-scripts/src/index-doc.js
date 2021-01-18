@@ -36,7 +36,9 @@ async function runDevser() {
 function startUpDevServer(port) {
   const configs = getWebpackConfig()
   const compiler = webpack(configs)
-  const server = new webpackDevServer(compiler, configs.devServer)
+  const devServerConfig = configs.devServer
+  devServerConfig.port = port
+  const server = new webpackDevServer(compiler, devServerConfig)
   server.showStatus = function () {
   };
   server.listen(port, '0.0.0.0', (err) => {

@@ -78,11 +78,10 @@ function getDevWebpackConfig (config) {
       ]
     },
     devServer: {
-      port: 8080,
+      port: 8000,
       host: '0.0.0.0',
       hot: true,
       compress: true,
-      watchContentBase: true,
       stats: 'errors-only',
       quiet: true
     }
