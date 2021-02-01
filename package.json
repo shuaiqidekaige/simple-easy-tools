@@ -1,0 +1,28 @@
+{
+  "name": "simple-easy-tools",
+  "version": "1.0.0",
+  "description": "simple-easy组件库的开发工具",
+  "main": "index.js",
+  "scripts": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/shuaiqidekaige/simple-easy-tools.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/shuaiqidekaige/simple-easy-tools/issues"
+  },
+  "homepage": "https://github.com/shuaiqidekaige/simple-easy-tools#readme",
+  "devDependencies": {
+    "@commitlint/config-conventional": "^11.0.0",
+    "commitlint": "^11.0.0",
+    "husky": "^4.3.8"
+  },
+  "husky": {
+    "hooks": {
+      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
+    }
+  }
+}
