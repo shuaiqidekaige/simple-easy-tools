@@ -13,25 +13,25 @@ let projectName
 const templateName = '@simple-easy/simple-easy-template'
 let manager
 
+// 生成器
 async function generator(obj) {
   cwd = process.cwd()
   projectName = obj.projectName
   targetDir = path.resolve(cwd, projectName)
-
   fs.ensureDirSync(targetDir);
-
+  manager = useYarnOrNpm()
   await createPackAgeJson();
   installAllDependencies();
   generatorTemplate(obj);
-
 }
-
+// 获取包最近的版本
 async function getPkgLatestVersion (pkg) {
   try {
     return await checkForLatestVersion(pkg)
   } catch (error) {
     try {
-      return execSync(`${pkg} view version`, { stdio: 'ignore' }).toString().trim();
+      // 报错则用npm view yourPack version 来查询最新包的版本
+      return execSync(`npm view ${pkg} version`, { stdio: 'ignore' }).toString().trim();
     } catch (error) {
       console.log()
       return null
@@ -39,6 +39,7 @@ async function getPkgLatestVersion (pkg) {
   }
 }
 
+// 查询包最近版本
 function checkForLatestVersion(pkg) {
   return new Promise((resolve, reject) => {
     https
@@ -62,6 +63,7 @@ function checkForLatestVersion(pkg) {
   });
 }
 
+// 获取项目依赖
 async function getDependencies () {
   const devDependencies = [templateName]
   const lastedDevDependencies = {}
@@ -74,6 +76,7 @@ async function getDependencies () {
   }
 }
 
+// 生成模板
 function generatorTemplate (obj) {
   const { projectName, cssPreprocessors, isUseTypeScript } = obj
   const args = `
@@ -84,6 +87,7 @@ function generatorTemplate (obj) {
   executeNodeScript(targetDir, process.execPath, ['-e', args, JSON.stringify(params)])
 }
 
+// 创建packagejson文件
 async function createPackAgeJson() {
   console.log('check your envirnment, it will take few minutes.');
   const dependencies = await getDependencies()
@@ -99,8 +103,8 @@ async function createPackAgeJson() {
   );
 }
 
+// 安装依赖
 function installAllDependencies() {
-  manager = useYarnOrNpm()
   if (manager) {
     try {
       console.log('Installing packages. This might take a couple of minutes.');
@@ -115,6 +119,7 @@ function installAllDependencies() {
   }
 }
 
+// 执行node脚本
 function executeNodeScript(cwd, command, args) {
   try {
     spawnSync(
@@ -127,6 +132,7 @@ function executeNodeScript(cwd, command, args) {
   }
 }
 
+// 获取包管理器名称
 function useYarnOrNpm() {
   const isExitYarn = checkYarnOrNpmIsExit('yarnpkg')
   if (isExitYarn) {
@@ -139,6 +145,7 @@ function useYarnOrNpm() {
   return ''
 }
 
+// 检测yarn或者npm是否存在
 function checkYarnOrNpmIsExit (order) {
   try {
     execSync(`${order} --version`, { stdio: 'ignore' });

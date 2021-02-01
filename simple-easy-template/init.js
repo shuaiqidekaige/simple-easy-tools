@@ -5,7 +5,19 @@ const fg = require('fast-glob')
 const ejs = require('ejs')
 const execSync = require('child_process').execSync;
 
+// 初始化git仓库
+function initGit () {
+  try {
+    console.log('Installing Git.');
+    execSync(`git init`, { cwd: targetDir, stdio: 'inherit' })
+  } catch (error) {
+    console.error(chalk.red(error))
+    process.exit(1)
+  }
+}
 
+
+// 安装依赖
 function installAllDependencies(manager, targetDir) {
   try {
     console.log('Installing packages. This might take a couple of minutes.');
@@ -16,6 +28,7 @@ function installAllDependencies(manager, targetDir) {
   }
 }
 
+// 写入并创建文件
 function writeFile (dirPath, content, target) {
   const dirArr = dirPath.split('/')
   let index = 0
@@ -47,8 +60,8 @@ function init (...args) {
         const data = fs.readFileSync(templatePath, 'utf8')
         const renderContent = ejs.render(data, { projectName, preprocessor: cssPreprocessors })
         writeFile(filePath, renderContent, targetDir)
-        // fs.writeFileSync(writePath, renderContent)
       });
+      initGit()
       installAllDependencies(manager, targetDir)
     } else {
       console.error(

@@ -9,6 +9,7 @@ const packageJson = require('../package.json');
 
 let projectName
 
+// 校验包名
 function validateName(name) {
   const validationResult = validateProjectName(name);
   if (!validationResult.validForNewPackages) {
@@ -30,6 +31,7 @@ function validateName(name) {
   }
 }
 
+// 检测文件是否存在
 function checkFileDirIsExit (dir) {
   const targetDir = path.resolve(process.cwd(), dir)
   if (fs.existsSync(targetDir)) {
@@ -38,6 +40,7 @@ function checkFileDirIsExit (dir) {
   }
 }
 
+// 检测项目名称
 function checkProjectName(name) {
   if (typeof name === 'undefined') {
     console.error('please enter your project-directory')
