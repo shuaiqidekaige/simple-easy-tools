@@ -2,7 +2,7 @@ const path = require('path');
 const { merge } = require('webpack-merge');
 const fs = require('fs-extra')
 
-const { getEnv } = require('../util')
+const { getEnv } = require('../../util')
 const baseConfig = require('./base')
 const devConfig = require('./dev')
 const prodConfig = require('./build')

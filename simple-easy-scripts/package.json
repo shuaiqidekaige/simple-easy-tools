@@ -3,9 +3,7 @@
   "version": "1.0.9",
   "description": "",
   "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
+  "scripts": {},
   "bin": {
     "simple-easy-scripts": "./src/index.js"
   },
@@ -19,15 +17,21 @@
     "@babel/plugin-transform-runtime": "^7.12.1",
     "@babel/preset-env": "^7.12.7",
     "@babel/preset-react": "^7.12.7",
+    "@simple-easy/simple-easy-mdloader": "^1.0.0",
+    "@types/jest": "^26.0.20",
     "address": "^1.1.2",
     "autoprefixer": "^10.0.4",
+    "babel-jest": "^26.6.3",
     "babel-loader": "^8.2.2",
     "chalk": "^4.1.0",
     "commander": "^6.2.0",
     "css-loader": "^5.0.1",
+    "eslint": "^7.19.0",
     "fs-extra": "^9.0.1",
     "gulp": "^4.0.2",
     "gulp-babel": "^8.0.0",
+    "html-webpack-plugin": "^5.0.0-alpha.15",
+    "jest": "^26.6.3",
     "less": "^3.12.2",
     "less-loader": "^7.1.0",
     "less-plugin-npm-import": "^2.1.0",
@@ -39,19 +43,16 @@
     "postcss-loader": "^4.1.0",
     "postcss-normalize": "^9.0.0",
     "postcss-preset-env": "^6.7.0",
+    "prettier": "^2.2.1",
     "rimraf": "^3.0.2",
     "style-loader": "^2.0.0",
+    "stylelint": "^13.11.0",
     "through2": "^4.0.2",
     "url-loader": "^4.1.1",
     "webpack": "^5.10.1",
-    "webpack-merge": "^5.7.0",
-    "webpackbar": "^5.0.0-3",
-    "html-webpack-plugin": "^5.0.0-alpha.15",
     "webpack-dev-server": "^3.11.0",
-    "@types/jest": "^26.0.20",
-    "babel-jest": "^26.6.3",
-    "jest": "^26.6.3"
+    "webpack-merge": "^5.7.0",
+    "webpackbar": "^5.0.0-3"
   },
-  "devDependencies": {
-  }
+  "devDependencies": {}
 }

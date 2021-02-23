@@ -120,19 +120,19 @@ gulp.task('compile-with-lib', done => {
   compile('lib').on('finish', done);
 });
 
-gulp.task('generateEsEntry', done => {
+gulp.task('generateEsEntry', async done => {
   console.log('[series] generateEsEntry...');
-  generateEntry('es')
+  await generateEntry('es')
   done()
 })
 
 
-gulp.task('generateLibEntry', done => {
+gulp.task('generateLibEntry', async done => {
   console.log('[series] generateLibEntry...');
-  generateEntry('lib')
+  await generateEntry('lib')
   done()
 })
-
+// 打包
 gulp.task(
   'compile',
   gulp.series(gulp.series('compile-with-es', 'compile-with-lib'), gulp.series('generateEsEntry', 'generateLibEntry'))

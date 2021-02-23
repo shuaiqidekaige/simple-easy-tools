@@ -4,7 +4,7 @@ const address = require('address');
 const webpack = require('webpack');
 const webpackDevServer = require('webpack-dev-server');
 const { setEnv } = require('../util');
-const getWebpackConfig = require('../webpackConfig')
+const getWebpackConfig = require('../config/webpackConfig')
 const portfinder = require('portfinder');
 
 program.parse(process.argv);

@@ -8,7 +8,7 @@ const { setModulesEnv } = require('../util')
 const rootDir = process.cwd()
 
 function getConfig () {
-  const originConfigPath = path.resolve(__dirname, '../jestConfig/jest.config.js')
+  const originConfigPath = path.resolve(__dirname, '../config/jestConfig/jest.config.js')
   const configPath = path.resolve(rootDir, 'jest.config.js')
   const originConfig = require(originConfigPath)
   let config = {}
