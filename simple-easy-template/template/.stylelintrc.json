@@ -1,0 +1,6 @@
+{
+  "extends": [
+    "@simple-easy/stylelint-config"
+  ]
+}
+  

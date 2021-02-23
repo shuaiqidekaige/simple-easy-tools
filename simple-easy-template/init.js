@@ -6,7 +6,7 @@ const ejs = require('ejs')
 const execSync = require('child_process').execSync;
 
 // 初始化git仓库
-function initGit () {
+function initGit (targetDir) {
   try {
     console.log('Installing Git.');
     execSync(`git init`, { cwd: targetDir, stdio: 'inherit' })
@@ -61,7 +61,7 @@ function init (...args) {
         const renderContent = ejs.render(data, { projectName, preprocessor: cssPreprocessors })
         writeFile(filePath, renderContent, targetDir)
       });
-      initGit()
+      initGit(targetDir)
       installAllDependencies(manager, targetDir)
     } else {
       console.error(
