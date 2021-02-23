@@ -1,0 +1,19 @@
+{
+  "name": "@simple-easy/stylelint-config",
+  "version": "1.0.0",
+  "description": "@simple-easy/stylelint-config",
+  "main": "index.js",
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "stylelint": "^13.11.0"
+  },
+  "dependencies": {
+    "stylelint-config-prettier": "^8.0.2",
+    "stylelint-config-rational-order": "^0.1.2",
+    "stylelint-config-standard": "^20.0.0",
+    "stylelint-declaration-block-no-ignored-properties": "^2.3.0",
+    "stylelint-order": "^4.1.0"
+  }
+}
