@@ -13,6 +13,12 @@ module.exports = {
       "configFile": path.resolve(process.cwd(), 'babel.config.js'),
     }
   },
+  "env": {
+    "browser": true,
+    "node": true,
+    "jest": true,
+    "es6": true,
+  },
   "extends": [
     "airbnb",
     "plugin:react/recommended",
