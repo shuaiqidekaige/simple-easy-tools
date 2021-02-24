@@ -6,15 +6,15 @@ const execSync = require('child_process').execSync;
 const rootDir = process.cwd()
 
 function runEslint () {
-  execSync(`eslint --fix --ext .jsx,.js`, { cwd: rootDir, stdio: 'inherit' })
+  execSync(`eslint --fix --ext .js,.jsx`, { cwd: rootDir, stdio: 'inherit' })
 }
 
 function runPrettier () {
-  execSync(`prettier --write`, { cwd: rootDir, stdio: 'inherit' })
+  execSync(`prettier "**/*.@(jsx|js)" -c --write`, { cwd: rootDir, stdio: 'inherit' })
 }
 
 function runStyleLint () {
-  execSync(`stylelint --fix`, { cwd: rootDir, stdio: 'inherit' })
+  execSync(`stylelint "{doc,components}/**/*.{css,less,scss,sass}" --fix`, { cwd: rootDir, stdio: 'inherit' })
 }
 
 function lint () {
@@ -24,6 +24,3 @@ function lint () {
 }
 
 lint()
-
-
-
