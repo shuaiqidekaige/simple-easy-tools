@@ -1,6 +1,3 @@
-const path = require('path')
-const { program } = require('commander');
-const chalk = require('chalk');
 const execSync = require('child_process').execSync;
 
 const rootDir = process.cwd()

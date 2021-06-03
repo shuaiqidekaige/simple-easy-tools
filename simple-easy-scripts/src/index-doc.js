@@ -3,7 +3,7 @@ const { program } = require('commander');
 const address = require('address');
 const webpack = require('webpack');
 const webpackDevServer = require('webpack-dev-server');
-const { setEnv } = require('../util');
+const { setEnv, webpackBuild } = require('../util');
 const getWebpackConfig = require('../config/webpackConfig')
 const portfinder = require('portfinder');
 
@@ -51,25 +51,7 @@ function startUpDevServer(port) {
 }
 
 function build() {
-  const compiler = webpack(getWebpackConfig());
-  compiler.run((err, stats) => {
-    if (err) {
-      console.error(chalk.red(err.stack || err));
-      if (err.details) {
-        console.error(chalk.red(err.details));
-      }
-      return;
-    }
-  
-    const info = stats.toJson();
-  
-    if (stats.hasErrors()) {
-      console.error(chalk.red(info.errors));
-    }
-  
-    if (stats.hasWarnings()) {
-      console.warn(chalk.yellow(info.warnings));
-    }
+  webpackBuild(getWebpackConfig(), () => {
     console.log('打包成功')
   })
 }

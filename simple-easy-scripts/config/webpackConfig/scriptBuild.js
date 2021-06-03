@@ -1,32 +1,19 @@
 const path = require('path')
 const baseDir = process.cwd()
-const HtmlWebpackPlugin = require('html-webpack-plugin')
+const pkg = path.resolve(baseDir, 'package.json')
 
 module.exports = {
-  entry: path.resolve(baseDir, 'doc/index.js'),
+  mode: 'production',
+  entry: path.resolve(baseDir, 'dist/es/index.js'),
   output: {
-    path: path.resolve(baseDir, 'docDist'),
-    filename: 'index.js'
+    path: path.resolve(baseDir, 'dist'),
+    filename: 'index.min.js',
+    library: pkg.name,
+    libraryTarget: 'umd',
   },
-  plugins: [
-    new HtmlWebpackPlugin({
-      title: 'doc',
-      inject: true,
-      template: path.resolve(process.cwd(), 'public/index.html'),
-      minify: {
-        removeComments: true,
-        collapseWhitespace: true,
-        removeRedundantAttributes: true,
-        useShortDoctype: true,
-        removeEmptyAttributes: true,
-        removeStyleLinkTypeAttributes: true,
-        keepClosingSlash: true,
-        minifyJS: true,
-        minifyCSS: true,
-        minifyURLs: true,
-      }
-    })
-  ],
+  externals : {
+    react: 'react',
+  },
   module: {
     rules: [
       {

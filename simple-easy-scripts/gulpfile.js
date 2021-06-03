@@ -6,13 +6,13 @@ const rimraf = require('rimraf');
 const merge2 = require('merge2')
 const babel = require('gulp-babel');
 const { outputFileSync } = require('fs-extra')
-const { transformLess, setModulesEnv, transformJs, getModulesEnv } = require('./util')
+const { transformLess, setModulesEnv, transformJs, getModulesEnv, webpackBuild } = require('./util')
+const getScriptBuildConfig = require('../config/webpackConfig/scriptBuild.js')
 
 const dist = path.resolve(process.cwd(), './dist')
 
 const libDir = path.resolve(dist, './lib')
 const esDir = path.resolve(dist, './es')
-
 
 const packName = 'components'
 
@@ -85,7 +85,7 @@ async function generateJsEntry (dir, files) {
         arr[i] = arr[i].charAt(0).toUpperCase() + arr[i].substring(1);
       }
       name = arr.join('')
-      content += `export { default as ${name} } from "../${file}";\n`;
+      content += `export { default as ${name} } from "./${file}";\n`;
     }
   });
   let baseDir = getModulesEnv() === 'lib' ? libDir : esDir
@@ -126,15 +126,19 @@ gulp.task('generateEsEntry', async done => {
   done()
 })
 
-
 gulp.task('generateLibEntry', async done => {
   console.log('[series] generateLibEntry...');
   await generateEntry('lib')
   done()
 })
+
+gulp.task('generateScriptEntry', async done => {
+  webpackBuild(getScriptBuildConfig, done)
+})
+
 // 打包
 gulp.task(
   'compile',
-  gulp.series(gulp.series('compile-with-es', 'compile-with-lib'), gulp.series('generateEsEntry', 'generateLibEntry'))
+  gulp.series(gulp.series('compile-with-es', 'compile-with-lib'), gulp.series('generateEsEntry', 'generateLibEntry', 'generateScriptEntry'))
 );
 
